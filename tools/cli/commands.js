@@ -506,6 +506,7 @@ main.registerCommand({
     full: { type: Boolean },
     react: { type: Boolean },
     typescript: { type: Boolean },
+    mobile: { type: Boolean },
   },
   catalogRefresh: new catalog.Refresh.Never()
 }, function (options) {
@@ -760,6 +761,8 @@ main.registerCommand({
     skelName += "-react";
   } else if (options.typescript) {
     skelName += "-typescript";
+  } else if (options.mobile) {
+    skelName += "-mobile";
   }
 
   files.cp_r(files.pathJoin(__dirnameConverted, '..', 'static-assets', skelName), appPath, {
@@ -868,8 +871,10 @@ main.registerCommand({
       ! options.minimal &&
       ! options.full &&
       ! options.react &&
-      ! options.typescript) {
-    // Notify people about --bare, --minimal, --full, --react, and --typescript.
+      ! options.typescript &&
+      ! options.mobile) {
+    // Notify people about --bare, --minimal, --full, --react, --typescript
+    // and --mobile.
     Console.info([
       "",
       "To start with a different app template, try one of the following:",
@@ -881,6 +886,7 @@ main.registerCommand({
     cmd("meteor create --full       # to create a more complete scaffolded app");
     cmd("meteor create --react      # to create a basic React-based app");
     cmd("meteor create --typescript # to create an app using TypeScript and React");
+    cmd("meteor create --mobile     # to create an app using Cordova and PWA settings");
   }
 
   Console.info("");
